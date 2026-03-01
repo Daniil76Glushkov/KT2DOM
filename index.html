@@ -19,20 +19,6 @@
         max-width: 1200px;
         margin: 0 auto;
       }
-
-      .cat-card {
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        text-align: center;
-      }
-
-      .cat-card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 5px;
-      }
     </style>
   </head>
   <body>
@@ -142,20 +128,54 @@
         },
       ];
 
-      const catsDiv = document.querySelector("div");
+      const catsContainer = document.querySelector(".cats");
 
       cats.forEach(function (cat) {
-        const card = `
-        <div style="border:1px solid #ccc; padding:10px; margin:10px;">
-            <img src="${cat.img_link}" width="200">
-            <h3>${cat.name} ${cat.favourite ? "❤️" : ""}</h3>
-            <p>Возраст: ${cat.age} лет</p>
-            <p>Рейтинг: ${cat.rate}/10</p>
-            <p>${cat.description}</p>
-        </div>
-    `;
+        const card = document.createElement("div");
+        card.className = "cat-card";
+        card.style.border = "1px solid #ddd";
+        card.style.padding = "15px";
+        card.style.borderRadius = "8px";
+        card.style.textAlign = "center";
+        
 
-        catsDiv.innerHTML += card;
+        const img = document.createElement("img");
+        img.src = cat.img_link;
+        img.alt = cat.name;
+        img.style.width = "100%";
+        img.style.height = "200px";
+        img.style.objectFit = "cover";
+        img.style.borderRadius = "5px";
+
+        const name = document.createElement("h3");
+        name.textContent = cat.name + (cat.favourite ? " ❤️" : "");
+        name.style.margin = "10px 0 5px";
+        name.style.fontSize = "1.5em";
+
+        const age = document.createElement("p");
+        age.textContent = `Возраст: ${cat.age} лет`;
+        age.style.margin = "5px 0";
+        age.style.color = "#666";
+
+        const rate = document.createElement("p");
+        rate.textContent = `Рейтинг: ${cat.rate}/10`;
+        rate.style.margin = "5px 0";
+        rate.style.color = "#666";
+
+        const description = document.createElement("p");
+        description.textContent = cat.description;
+        description.style.margin = "10px 0 0";
+        description.style.fontSize = "0.9em";
+        description.style.lineHeight = "1.4";
+        description.style.color = "#333";
+
+        card.appendChild(img);
+        card.appendChild(name);
+        card.appendChild(age);
+        card.appendChild(rate);
+        card.appendChild(description);
+
+        catsContainer.appendChild(card);
       });
     </script>
   </body>
